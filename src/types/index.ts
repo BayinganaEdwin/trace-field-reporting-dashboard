@@ -52,6 +52,14 @@ export interface Report {
   reviewed_at: string | null;
   reviewed_by_id: string | null;
   rejection_reason: string | null;
+  section: string | null;
+  upi_number: string | null;
+  submitted_by_name: string | null;
+  progress_delta: number | null;
+  progress_label: string | null;
+  progress_stagnant: boolean | null;
+  reference_similarity: number | null;
+  reference_label: string | null;
 }
 
 export interface Analytics {
