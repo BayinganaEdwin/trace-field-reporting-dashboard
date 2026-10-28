@@ -31,6 +31,8 @@ export interface Site {
   pendingCount: number;
   rei: number;
   currentStage: ConstructionStage | null;
+  reference_photo_url: string | null;
+  workerCount: number;
 }
 
 export interface Report {
