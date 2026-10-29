@@ -125,7 +125,7 @@ export default function ReportsPage() {
                   <div>
                     <p className="font-medium text-sm">{report.site_name ?? report.site_id}</p>
                     <p className="text-xs text-muted-foreground">
-                      {STAGE_LABELS[report.reported_stage] ?? report.reported_stage} · {relativeTime(report.submitted_at)}
+                      {STAGE_LABELS[report.reported_stage] ?? report.reported_stage} · {report.submitted_by_name ?? report.submitted_by_id} · {relativeTime(report.submitted_at)}
                     </p>
                     {report.ai_detected_stage && (
                       <p className="text-xs text-muted-foreground mt-0.5">
