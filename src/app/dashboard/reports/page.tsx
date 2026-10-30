@@ -72,7 +72,7 @@ export default function ReportsPage() {
       verified: "success", approved: "success", pending: "warning",
       flagged: "destructive", rejected: "outline",
     };
-    return <Badge variant={map[s] ?? "outline"} className="capitalize shrink-0">{s}</Badge>;
+    return <Badge variant={map[s] ?? "outline"} className="capitalize shrink-0">{s === "pending" ? "Pending Analysis" : s}</Badge>;
   };
 
   const canAction = (r: Report) => r.status === "pending" || r.status === "verified";
