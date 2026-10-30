@@ -24,7 +24,7 @@ export default function OverviewPage() {
     const map: Record<string, { variant: any; label: string }> = {
       verified: { variant: "success",     label: "Verified" },
       approved: { variant: "success",     label: "Approved" },
-      pending:  { variant: "warning",     label: "Pending" },
+      pending:  { variant: "warning",     label: "Pending Analysis" },
       flagged:  { variant: "destructive", label: "Flagged" },
       rejected: { variant: "outline",     label: "Rejected" },
     };
