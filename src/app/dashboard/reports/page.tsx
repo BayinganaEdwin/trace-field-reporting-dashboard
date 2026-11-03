@@ -127,6 +127,11 @@ export default function ReportsPage() {
                     <p className="text-xs text-muted-foreground">
                       {STAGE_LABELS[report.reported_stage] ?? report.reported_stage} · {report.submitted_by_name ?? report.submitted_by_id} · {relativeTime(report.submitted_at)}
                     </p>
+                    {report.section && report.section !== 'general' && (
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Section: {report.section.replace('_', ' & ')}
+                      </p>
+                    )}
                     {report.ai_detected_stage && (
                       <p className="text-xs text-muted-foreground mt-0.5">
                         AI: {STAGE_LABELS[report.ai_detected_stage] ?? report.ai_detected_stage}
