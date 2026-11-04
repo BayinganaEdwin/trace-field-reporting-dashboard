@@ -201,3 +201,12 @@ export default function ReportsPage() {
     </div>
   );
 }
+
+// Progress delta helper: derive human-readable label from comparison delta
+// delta > 0.05 = Progressing, < -0.05 = Regressing, else = Stagnant
+function progressLabel(delta: number | null): string {
+  if (delta == null) return 'No data';
+  if (delta > 0.05)  return 'Progressing';
+  if (delta < -0.05) return 'Regressing';
+  return 'Stagnant';
+}
