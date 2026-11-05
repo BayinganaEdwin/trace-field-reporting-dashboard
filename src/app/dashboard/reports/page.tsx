@@ -210,3 +210,9 @@ function progressLabel(delta: number | null): string {
   if (delta < -0.05) return 'Regressing';
   return 'Stagnant';
 }
+
+// UPI (Unique Parcel Identifier) display helper
+function formatUpi(upi: string | null): string {
+  if (!upi) return '—';
+  return upi.toUpperCase();
+}
