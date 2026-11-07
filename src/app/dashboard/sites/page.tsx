@@ -244,3 +244,6 @@ export default function SitesPage() {
     </div>
   );
 }
+
+// Sites with reference_photo_url show a reference design indicator.
+// TODO: add "Set reference photo" button in site detail panel for managers.
