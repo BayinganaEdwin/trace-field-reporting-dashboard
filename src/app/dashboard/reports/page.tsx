@@ -132,6 +132,11 @@ export default function ReportsPage() {
                         Section: {report.section.replace('_', ' & ')}
                       </p>
                     )}
+                    {report.reference_similarity != null && (
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Ref match: {Math.round(report.reference_similarity * 100)}% — {report.reference_label}
+                      </p>
+                    )}
                     {report.ai_detected_stage && (
                       <p className="text-xs text-muted-foreground mt-0.5">
                         AI: {STAGE_LABELS[report.ai_detected_stage] ?? report.ai_detected_stage}
