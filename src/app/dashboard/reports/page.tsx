@@ -139,7 +139,7 @@ export default function ReportsPage() {
                     )}
                     {report.ai_detected_stage && (
                       <p className="text-xs text-muted-foreground mt-0.5">
-                        AI: {STAGE_LABELS[report.ai_detected_stage] ?? report.ai_detected_stage}
+                        AI detected: {STAGE_LABELS[report.ai_detected_stage] ?? report.ai_detected_stage}
                         {report.ai_confidence != null && ` — ${Math.round(report.ai_confidence * 100)}% confidence`}
                       </p>
                     )}
