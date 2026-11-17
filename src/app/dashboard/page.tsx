@@ -45,6 +45,7 @@ export default function OverviewPage() {
         <StatCard icon={MapPin}        label="Active sites"  value={analytics?.activeSites ?? sites.length} color="text-blue-600    bg-blue-50" />
         <StatCard icon={FileText}      label="Total reports" value={analytics?.totalReports ?? 0}           color="text-violet-600 bg-violet-50" />
         <StatCard icon={CheckCircle}   label="Approved"      value={analytics?.approvedReports ?? 0}        color="text-green-600  bg-green-50" />
+        <StatCard icon={FileText}      label="Pending Analysis" value={analytics?.pendingReports ?? 0}         color="text-orange-600 bg-orange-50" />
         <StatCard icon={AlertTriangle} label="Flagged"       value={analytics?.flaggedReports ?? 0}         color="text-amber-600  bg-amber-50" />
       </div>
 
