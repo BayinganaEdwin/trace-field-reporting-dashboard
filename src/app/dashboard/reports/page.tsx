@@ -216,3 +216,6 @@ function formatUpi(upi: string | null): string {
   if (!upi) return '—';
   return upi.toUpperCase();
 }
+
+{/* TODO: add section filter dropdown alongside status filter
+    Sections: general, beams_columns, foundation, roofing, walls */}
