@@ -87,3 +87,12 @@ export const DEMO_USERS: { id: string; name: string; role: UserRole }[] = [
   { id: "user-manager-1", name: "Fatima Nkusi", role: "manager" },
   { id: "user-owner-1",   name: "Patrick Habimana", role: "owner" },
 ];
+
+// Status labels for the manager dashboard
+export const STATUS_LABELS: Record<string, string> = {
+  pending:  'Pending Analysis',
+  verified: 'Verified',
+  approved: 'Approved',
+  flagged:  'Flagged',
+  rejected: 'Rejected',
+};
