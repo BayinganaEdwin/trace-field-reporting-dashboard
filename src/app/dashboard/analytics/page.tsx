@@ -114,3 +114,7 @@ function KpiCard({ icon: Icon, label, value, color }: { icon: any; label: string
     </Card>
   );
 }
+
+// REI (Report Evidence Index): composite quality score 0-100.
+// Weights: accuracy 30%, feedback_loop 25%, completeness 20%,
+// auditability 15%, accessibility 5%, cost_efficiency 5%.
