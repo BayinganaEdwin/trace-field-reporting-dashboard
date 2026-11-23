@@ -1,15 +1,21 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: "SiteLog Dashboard",
-  description: "Construction site reporting management",
+  title: 'Trace Dashboard',
+  description: 'Construction site reporting management',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>{children}</body>
+      <body style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+        {children}
+      </body>
     </html>
   );
 }
