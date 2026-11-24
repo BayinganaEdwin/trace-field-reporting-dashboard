@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -12,24 +13,41 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Building2 } from 'lucide-react';
+import { loginWithEmail } from '@/lib/api';
 
 const DEMO_ACCOUNTS = [
-  { label: 'Manager', userId: 'user-manager-1', name: 'Fatima Nkusi' },
-  { label: 'Owner', userId: 'user-owner-1', name: 'Patrick Habimana' },
+  { label: 'Manager', email: 'fatima@sitelog.rw', name: 'Fatima Nkusi' },
+  { label: 'Owner', email: 'patrick@sitelog.rw', name: 'Patrick Habimana' },
 ];
 
 export default function LoginPage() {
   const router = useRouter();
-  const [userId, setUserId] = useState('user-manager-1');
+  const searchParams = useSearchParams();
+  const justRegistered = searchParams.get('registered') === '1';
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  function login(id: string) {
-    if (!id.trim()) {
-      setError('Enter a user ID');
+  async function login(emailOverride?: string) {
+    const target = (emailOverride ?? email).trim();
+    if (!target) {
+      setError('Email is required');
       return;
     }
-    localStorage.setItem('sitelog_user_id', id.trim());
-    router.push('/dashboard');
+    setLoading(true);
+    setError('');
+    try {
+      const user = await loginWithEmail(target);
+      localStorage.setItem('sitelog_user_id', user.id);
+      localStorage.setItem('sitelog_user_name', user.name);
+      localStorage.setItem('sitelog_user_role', user.role);
+      router.push('/dashboard');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Sign in failed');
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -50,27 +68,49 @@ export default function LoginPage() {
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Sign in</CardTitle>
             <CardDescription>
-              Enter your user ID to access the dashboard.
+              Enter your email and password to continue.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-1.5">
-              <Label htmlFor="userId">User ID</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
-                id="userId"
-                placeholder="user-manager-1"
-                value={userId}
-                onChange={(e) => {
-                  setUserId(e.target.value);
-                  setError('');
-                }}
-                onKeyDown={(e) => e.key === 'Enter' && login(userId)}
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => { setEmail(e.target.value); setError(''); }}
+                onKeyDown={(e) => e.key === 'Enter' && login()}
+                autoComplete="email"
               />
-              {error && <p className="text-xs text-destructive">{error}</p>}
             </div>
-            <Button className="w-full" onClick={() => login(userId)}>
-              Sign in
+            <div className="space-y-1.5">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => { setPassword(e.target.value); setError(''); }}
+                onKeyDown={(e) => e.key === 'Enter' && login()}
+                autoComplete="current-password"
+              />
+            </div>
+            {justRegistered && (
+              <p className="text-xs text-green-600 bg-green-50 rounded px-3 py-2">
+                Account created — sign in below.
+              </p>
+            )}
+            {error && <p className="text-xs text-destructive">{error}</p>}
+            <Button className="w-full" onClick={() => login()} disabled={loading}>
+              {loading ? 'Signing in…' : 'Sign in'}
             </Button>
+            <p className="text-center text-xs text-muted-foreground">
+              Don&apos;t have an account?{' '}
+              <Link href="/register" className="underline underline-offset-2 hover:text-foreground">
+                Create account
+              </Link>
+            </p>
           </CardContent>
         </Card>
 
@@ -82,9 +122,10 @@ export default function LoginPage() {
           <div className="grid grid-cols-2 gap-2">
             {DEMO_ACCOUNTS.map((a) => (
               <button
-                key={a.userId}
-                onClick={() => login(a.userId)}
-                className="rounded-lg border bg-card p-3 text-left hover:bg-accent transition-colors"
+                key={a.email}
+                onClick={() => login(a.email)}
+                disabled={loading}
+                className="rounded-lg border bg-card p-3 text-left hover:bg-accent transition-colors disabled:opacity-50"
               >
                 <p className="text-sm font-medium">{a.label}</p>
                 <p className="text-xs text-muted-foreground">{a.name}</p>

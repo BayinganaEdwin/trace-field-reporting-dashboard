@@ -15,6 +15,35 @@ export function storeUserId(id: string) {
 
 export function clearUserId() {
   localStorage.removeItem('sitelog_user_id');
+  localStorage.removeItem('sitelog_user_name');
+  localStorage.removeItem('sitelog_user_role');
+}
+
+export async function loginWithEmail(email: string): Promise<{
+  id: string; name: string; email: string; role: string;
+}> {
+  return handle(
+    await fetch(`${BASE}/users/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    }),
+  );
+}
+
+export async function registerUser(body: {
+  name: string;
+  email: string;
+  role: 'worker' | 'manager' | 'owner';
+  phone?: string;
+}): Promise<{ id: string; name: string; email: string; role: string }> {
+  return handle(
+    await fetch(`${BASE}/users/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    }),
+  );
 }
 
 function headers(extra?: Record<string, string>) {
