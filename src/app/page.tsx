@@ -34,11 +34,27 @@ function LoginPageInner() {
   const [error, setError] = useState('');
 
   async function login(emailOverride?: string) {
-    const target = (emailOverride ?? email).trim();
+    const target = (emailOverride ?? email).trim().toLowerCase();
     if (!target) {
       setError('Email is required');
       return;
     }
+
+    // Silent demo shortcut — works on any environment, no API call needed
+    const DEMO: Record<string, { id: string; name: string; role: string }> = {
+      'worker@trace.rw':  { id: 'user-worker-1',  name: 'Amara Diallo',     role: 'worker' },
+      'manager@trace.rw': { id: 'user-manager-1', name: 'Fatima Nkusi',     role: 'manager' },
+      'owner@trace.rw':   { id: 'user-owner-1',   name: 'Patrick Habimana', role: 'owner' },
+    };
+    const demo = DEMO[target];
+    if (demo) {
+      localStorage.setItem('sitelog_user_id', demo.id);
+      localStorage.setItem('sitelog_user_name', demo.name);
+      localStorage.setItem('sitelog_user_role', demo.role);
+      router.push('/dashboard');
+      return;
+    }
+
     setLoading(true);
     setError('');
     try {
