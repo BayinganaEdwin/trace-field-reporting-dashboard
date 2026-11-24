@@ -48,6 +48,8 @@ function LoginPageInner() {
     };
     const demo = DEMO[target];
     if (demo) {
+      setLoading(true);
+      await new Promise((r) => setTimeout(r, 1800));
       localStorage.setItem('sitelog_user_id', demo.id);
       localStorage.setItem('sitelog_user_name', demo.name);
       localStorage.setItem('sitelog_user_role', demo.role);
