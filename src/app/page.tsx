@@ -15,10 +15,6 @@ import { Label } from '@/components/ui/label';
 import { Building2 } from 'lucide-react';
 import { loginWithEmail } from '@/lib/api';
 
-const DEMO_ACCOUNTS = [
-  { label: 'Manager', email: 'fatima@sitelog.rw', name: 'Fatima Nkusi' },
-  { label: 'Owner', email: 'patrick@sitelog.rw', name: 'Patrick Habimana' },
-];
 
 export default function LoginPage() {
   return (
@@ -122,25 +118,6 @@ function LoginPageInner() {
           </CardContent>
         </Card>
 
-        {/* Demo quick-login */}
-        <div className="space-y-2">
-          <p className="text-center text-xs text-muted-foreground">
-            Quick access — demo accounts
-          </p>
-          <div className="grid grid-cols-2 gap-2">
-            {DEMO_ACCOUNTS.map((a) => (
-              <button
-                key={a.email}
-                onClick={() => login(a.email)}
-                disabled={loading}
-                className="rounded-lg border bg-card p-3 text-left hover:bg-accent transition-colors disabled:opacity-50"
-              >
-                <p className="text-sm font-medium">{a.label}</p>
-                <p className="text-xs text-muted-foreground">{a.name}</p>
-              </button>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );

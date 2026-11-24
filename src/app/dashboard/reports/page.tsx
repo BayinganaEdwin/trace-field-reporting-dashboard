@@ -108,7 +108,7 @@ export default function ReportsPage() {
         <div className="py-16 text-center"><p className="text-muted-foreground">No reports found.</p></div>
       )}
 
-      <div className="space-y-3">
+      <div className="space-y-3 max-w-3xl">
         {filtered.map((report) => (
           <Card key={report.id} className="hover:shadow-sm transition-shadow">
             <CardContent className="p-4 flex gap-4">
